@@ -1,3 +1,10 @@
+// ------------------------------------------------------
+// Docusaurus Config with Full KaTeX Math Support
+// ------------------------------------------------------
+
+import { themes as prismThemes } from 'prism-react-renderer';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -5,18 +12,17 @@ const config = {
   tagline: 'Mastering Embodied AI from ROS2 to VLA',
   url: 'https://your-docusaurus-site.com',
   baseUrl: '/',
+  favicon: 'img/favicon.ico',
+
   onBrokenLinks: 'throw',
   markdown: {
-    // You can add more markdown options here if needed, like format: 'mdx'
     hooks: {
       onBrokenMarkdownLinks: 'warn',
     },
   },
-  favicon: 'img/favicon.ico',
 
-  // GitHub pages deployment config.
-  organizationName: 'your-organization', // Usually your GitHub org/user name.
-  projectName: 'my-ai-book', // Usually your repo name.
+  organizationName: 'your-organization',
+  projectName: 'my-ai-book',
 
   presets: [
     [
@@ -27,17 +33,32 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          remarkPlugins: [remarkMath],      // ⭐ Math Enabled
+          rehypePlugins: [rehypeKatex],     // ⭐ KaTeX Rendering
         },
         blog: {
           showReadingTime: true,
           editUrl:
             'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
       }),
     ],
+  ],
+
+  // ⭐ KaTeX CSS for math rendering
+  stylesheets: [
+    {
+      href: 'https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css',
+      type: 'text/css',
+      integrity:
+        'sha384-mLLdZeF0pniS3pSke1Mt2rt7NmBGG99nmHn7+PBkO5RAwOB1p5MNDoAuCEr0aKBd',
+      crossorigin: 'anonymous',
+    },
   ],
 
   themeConfig:
@@ -56,7 +77,7 @@ const config = {
             position: 'left',
             label: 'Textbook',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          { to: '/blog', label: 'Blog', position: 'left' },
           {
             href: 'https://github.com/facebook/docusaurus',
             label: 'GitHub',
@@ -64,6 +85,7 @@ const config = {
           },
         ],
       },
+
       footer: {
         style: 'dark',
         links: [
@@ -109,13 +131,12 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
+
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
     }),
 };
-
-import {themes as prismThemes} from 'prism-react-renderer';
 
 export default config;
