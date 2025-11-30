@@ -1,0 +1,106 @@
+.chatbot-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chatbot-toggle-button {
+  background-color: var(--chatbot-primary-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chatbot-window {
+  position: absolute;
+  bottom: 70px; /* Above the toggle button */
+  right: 0;
+  width: 350px;
+  height: 450px;
+  background-color: var(--chatbot-bg-color);
+  border-radius: 10px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  transform-origin: bottom right;
+}
+
+.chatbot-header {
+  background-color: var(--chatbot-primary-color);
+  color: white;
+  padding: 10px 15px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.chatbot-messages {
+  flex-grow: 1;
+  padding: 15px;
+  overflow-y: auto;
+  color: var(--chatbot-text-color);
+}
+
+.chatbot-input-area {
+  display: flex;
+  padding: 10px 15px;
+  border-top: 1px solid #eee;
+  background-color: var(--chatbot-bg-color);
+}
+
+.chatbot-input-area input {
+  flex-grow: 1;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-right: 10px;
+  font-size: 1rem;
+  background-color: var(--chatbot-bg-color);
+  color: var(--chatbot-text-color);
+}
+
+.chatbot-input-area button {
+  background-color: var(--chatbot-primary-color);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 8px 15px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+/* Dark/Light mode specific styles */
+.dark-theme .chatbot-window {
+  background-color: var(--ifm-background-color-dark);
+  color: var(--ifm-font-color-base-dark);
+}
+.light-theme .chatbot-window {
+  background-color: var(--ifm-background-color);
+  color: var(--ifm-font-color-base);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .chatbot-container {
+    bottom: 10px;
+    right: 10px;
+  }
+  .chatbot-window {
+    width: 90vw;
+    height: 70vh;
+    bottom: 60px;
+    right: 5vw;
+  }
+}

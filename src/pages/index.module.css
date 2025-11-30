@@ -1,23 +1,329 @@
-/**
- * CSS files with the .module.css suffix will be treated as CSS modules
- * and scoped locally.
- */
+/* Global Animations */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
 
-.heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+@keyframes pulseGlow {
+  0% { box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary); }
+  50% { box-shadow: 0 0 20px var(--ifm-color-primary), 0 0 40px var(--ifm-color-primary); }
+  100% { box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary); }
+}
+
+@keyframes gridMove {
+  0% { background-position: 0 0; }
+  100% { background-position: 50px 50px; }
+}
+
+/* Layout Utilities */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Hero Section */
+.heroSection {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
   position: relative;
   overflow: hidden;
+  background: linear-gradient(135deg, #0a192f 0%, #020c1b 100%);
+  perspective: 1000px;
 }
 
-@media screen and (max-width: 996px) {
-  .heroBanner {
-    padding: 2rem;
-  }
+/* Animated Grid Background */
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: 
+    linear-gradient(rgba(0, 210, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 210, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: center top;
+  transform: perspective(500px) rotateX(60deg) scale(2) translateY(-100px);
+  animation: gridMove 20s linear infinite;
+  opacity: 0.2;
+  z-index: 0;
+  mask-image: linear-gradient(to bottom, transparent 0%, black 40%, black 80%, transparent 100%);
 }
 
-.buttons {
+.heroContent {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+
+.heroText h1 {
+  font-size: 5rem;
+  line-height: 1.1;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  letter-spacing: -2px;
+  background: linear-gradient(to right, #fff, #00d2ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 210, 255, 0.3);
+}
+
+.heroText p {
+  font-size: 1.5rem;
+  color: #8892b0;
+  margin-bottom: 3rem;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.heroButtons {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.ctaButton {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  border-radius: 8px;
+  text-decoration: none !important;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.primaryBtn {
+  background: var(--ifm-color-primary);
+  color: #0a192f;
+  box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
+}
+
+.primaryBtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: 0.5s;
+}
+
+.primaryBtn:hover::before {
+  left: 100%;
+}
+
+.primaryBtn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 40px rgba(0, 210, 255, 0.6);
+  color: #0a192f;
+}
+
+.secondaryBtn {
+  border: 1px solid var(--ifm-color-primary);
+  color: var(--ifm-color-primary);
+  background: rgba(0, 210, 255, 0.05);
+  backdrop-filter: blur(5px);
+}
+
+.secondaryBtn:hover {
+  background: rgba(0, 210, 255, 0.15);
+  transform: translateY(-3px);
+  color: #fff;
+}
+
+/* Hero Visual (Right Side) */
+.heroVisual {
+  position: relative;
+  height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.codeWindow {
+  background: rgba(17, 34, 64, 0.8);
+  border: 1px solid rgba(0, 210, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+  animation: float 6s ease-in-out infinite;
+  font-family: 'Fira Code', monospace;
+}
+
+.windowHeader {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 1rem;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #ff5f56;
+}
+.dot:nth-child(2) { background: #ffbd2e; }
+.dot:nth-child(3) { background: #27c93f; }
+
+.codeContent {
+  color: #a8b2d1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.keyword { color: #c792ea; }
+.string { color: #addb67; }
+.function { color: #82aaff; }
+.cursor {
+  display: inline-block;
+  width: 8px;
+  height: 16px;
+  background: var(--ifm-color-primary);
+  animation: blink 1s step-end infinite;
+  vertical-align: middle;
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+
+/* Bento Grid Features */
+.featuresSection {
+  padding: 8rem 0;
+  background: #0b132b;
+  position: relative;
+}
+
+.sectionHeader {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.sectionTag {
+  color: var(--ifm-color-primary);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.sectionTitle {
+  font-size: 3.5rem;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.bentoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 300px);
+  gap: 1.5rem;
+  padding: 0 2rem;
+}
+
+.bentoCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  position: relative;
+}
+
+.bentoCard:hover {
+  background: rgba(255, 255, 255, 0.06);
+  transform: translateY(-5px);
+  border-color: var(--ifm-color-primary);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Specific Bento Card Sizes */
+.cardLarge { grid-column: span 2; }
+.cardTall { grid-row: span 2; }
+
+.cardIcon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: rgba(0, 210, 255, 0.1);
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 16px;
+  color: var(--ifm-color-primary);
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.cardDesc {
+  color: #8892b0;
+  line-height: 1.6;
+}
+
+/* Agent Preview Section */
+.agentSection {
+  padding: 8rem 0;
+  background: linear-gradient(180deg, #0b132b 0%, #0a192f 100%);
+  text-align: center;
+}
+
+.agentContainer {
+  background: radial-gradient(circle at center, rgba(0, 210, 255, 0.1) 0%, transparent 70%);
+  padding: 4rem;
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Mobile Responsive */
+@media screen and (max-width: 1024px) {
+  .heroContent {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+  
+  .heroButtons {
+    justify-content: center;
+  }
+
+  .heroVisual {
+    display: none; /* Hide complex visual on tablet/mobile for simplicity */
+  }
+
+  .bentoGrid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  
+  .cardLarge, .cardTall {
+    grid-column: span 1;
+    grid-row: span 1;
+    min-height: 300px;
+  }
+  
+  .heroText h1 {
+    font-size: 3rem;
+  }
 }
