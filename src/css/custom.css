@@ -1,33 +1,35 @@
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 
-  --chatbot-primary-color: #007bff;
+  --chatbot-primary-color: #2563eb;
   --chatbot-bg-color: rgba(255, 255, 255, 0.85);
   --chatbot-text-color: #333;
   --chatbot-header-bg: rgba(245, 245, 245, 0.7);
 }
 
 [data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-background-color: #0a192f;
+  --ifm-color-primary: #64ffda;
+  --ifm-color-primary-dark: #4ccfa5;
+  --ifm-color-primary-darker: #3ddc97;
+  --ifm-color-primary-darkest: #2ed989;
+  --ifm-color-primary-light: #7efed1;
+  --ifm-color-primary-lighter: #98ffdd;
+  --ifm-color-primary-lightest: #b2ffe9;
+  --ifm-font-color-base: #ffffff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
-  --chatbot-primary-color: #1e88e5;
-  --chatbot-bg-color: rgba(40, 40, 40, 0.85);
-  --chatbot-text-color: #eee;
-  --chatbot-header-bg: rgba(50, 50, 50, 0.7);
+  --chatbot-primary-color: #64ffda;
+  --chatbot-bg-color: rgba(10, 25, 47, 0.85);
+  --chatbot-text-color: #ffffff;
+  --chatbot-header-bg: rgba(10, 25, 47, 0.7);
 }
 
 /* Glassmorphism-inspired styles for the chatbot container */
@@ -120,7 +122,7 @@
 
 .chatbot-message.user {
   background-color: var(--chatbot-primary-color);
-  color: white;
+  color: #0a192f;
   align-self: flex-end;
   border-bottom-right-radius: 5px;
 }
@@ -150,7 +152,7 @@
 
 .chatbot-input-area button {
   background-color: var(--chatbot-primary-color);
-  color: white;
+  color: #0a192f;
   border: none;
   border-radius: 50%;
   width: 40px;

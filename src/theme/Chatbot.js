@@ -48,17 +48,43 @@ const Chatbot = () => {
     setInputValue(e.target.value);
   };
 
-  const handleSendMessage = () => {
-    if (inputValue.trim()) {
-      const userMessage = { id: Date.now(), text: inputValue, sender: 'user' };
-      setMessages((prevMessages) => [...prevMessages, userMessage]);
-      setInputValue('');
+  const handleSendMessage = async () => {
+    if (!inputValue.trim()) return;
 
-      // Simulate a bot response
-      setTimeout(() => {
-        const botMessage = { id: Date.now() + 1, text: `Echo: ${inputValue}`, sender: 'bot' };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
-      }, 1000);
+    const userMessage = { id: Date.now(), text: inputValue, sender: 'user' };
+    setMessages((prevMessages) => [...prevMessages, userMessage]);
+    const currentInput = inputValue;
+    setInputValue('');
+
+    try {
+      const response = await fetch('http://localhost:8000/api/v1/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query: currentInput }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ detail: 'Network error' }));
+        throw new Error(errorData.detail || 'Failed to get response');
+      }
+
+      const data = await response.json();
+      const botMessage = { 
+        id: Date.now() + 1, 
+        text: data.answer || 'No response received', 
+        sender: 'bot' 
+      };
+      setMessages((prevMessages) => [...prevMessages, botMessage]);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      const errorMessage = { 
+        id: Date.now() + 1, 
+        text: `Sorry, I couldn't connect to the AI backend. ${error.message}`, 
+        sender: 'bot' 
+      };
+      setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
 

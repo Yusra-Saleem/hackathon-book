@@ -2,7 +2,6 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
-import ChatInterface from '@site/src/components/ChatInterface';
 import styles from './index.module.css';
 
 import { FaRobot, FaEye, FaBrain, FaTheaterMasks, FaGlobe, FaBookOpen, FaCommentDots } from 'react-icons/fa';
@@ -166,7 +165,6 @@ export default function Home(): JSX.Element {
         <HeroSection />
         <BentoFeatures />
         <AgentPreview />
-        <ChatInterface />
       </main>
     </Layout>
   );

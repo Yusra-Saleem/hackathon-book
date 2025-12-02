@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import styles from './styles.module.css';
 
 interface Message {
@@ -29,13 +30,22 @@ export default function ChatInterface(): JSX.Element {
     setInput('');
     setIsLoading(true);
 
+    let userId: string | null = null;
+    if (ExecutionEnvironment.canUseDOM) {
+      userId = localStorage.getItem('user_id');
+    }
+
     try {
+      const body: any = { query: userMsg.text };
+      if (userId) {
+        body.user_id = userId;
+      }
       const response = await fetch('http://localhost:8000/api/v1/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ query: userMsg.text }),
+        body: JSON.stringify(body),
       });
 
       if (!response.ok) {

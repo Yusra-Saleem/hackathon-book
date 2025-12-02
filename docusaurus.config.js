@@ -65,12 +65,23 @@ const config = {
     navbar: {
       title: 'Physical AI & Humanoid Robotics',
       items: [
-                  {
-                    type: 'doc',
-                    docId: 'Introduction/Foundations-Hardware',
-                    label: 'Textbook',
-                    position: 'left',
-                  },        {
+        {
+          type: 'doc',
+          docId: 'Introduction/Foundations-Hardware',
+          label: 'Textbook',
+          position: 'left',
+        },
+        {
+          href: '/login',
+          label: 'Login',
+          position: 'right',
+        },
+        {
+          href: '/signup',
+          label: 'Signup',
+          position: 'right',
+        },
+        {
           href: 'https://github.com/facebook/docusaurus',
           label: 'GitHub',
           position: 'right',
