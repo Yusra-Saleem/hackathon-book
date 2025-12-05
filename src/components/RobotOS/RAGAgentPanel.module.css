@@ -1,0 +1,241 @@
+.ragPanel {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  width: 450px;
+  background: rgba(13, 13, 26, 0.95);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  transform: skew(2deg);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  z-index: 10;
+}
+
+.panelHeader {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(0, 255, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panelTitle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.titleLabel {
+  font-size: 0.65rem;
+  color: rgba(0, 255, 255, 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+.titleValue {
+  font-size: 0.85rem;
+  color: #00FFFF;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+.statusIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #00FF88;
+  box-shadow: 0 0 10px rgba(0, 255, 136, 0.8);
+  animation: statusPulse 2s ease-in-out infinite;
+}
+
+.statusDot[data-status="RETRIEVING"] {
+  background: #FFAA00;
+  box-shadow: 0 0 10px rgba(255, 170, 0, 0.8);
+  animation: statusPulse 0.5s ease-in-out infinite;
+}
+
+.statusDot[data-status="PROCESSING"] {
+  background: #00FFFF;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
+  animation: statusPulse 0.3s ease-in-out infinite;
+}
+
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.statusText {
+  font-size: 0.7rem;
+  color: rgba(0, 255, 255, 0.8);
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+}
+
+.chatContainer {
+  flex: 1;
+  padding: 1rem 1.5rem;
+  min-height: 200px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: rgba(0, 255, 255, 0.4);
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.emptyIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.message[data-role="user"] {
+  align-items: flex-end;
+}
+
+.message[data-role="agent"] {
+  align-items: flex-start;
+}
+
+.messagePrefix {
+  font-size: 0.65rem;
+  color: rgba(0, 255, 255, 0.6);
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.1em;
+}
+
+.message[data-role="user"] .messagePrefix {
+  color: rgba(255, 170, 0, 0.8);
+}
+
+.messageText {
+  font-size: 0.85rem;
+  color: rgba(0, 255, 255, 0.9);
+  font-family: 'Courier New', monospace;
+  padding: 0.5rem 0.8rem;
+  background: rgba(0, 255, 255, 0.05);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  max-width: 80%;
+  line-height: 1.4;
+}
+
+.message[data-role="user"] .messageText {
+  background: rgba(255, 170, 0, 0.1);
+  border-color: rgba(255, 170, 0, 0.3);
+  color: rgba(255, 170, 0, 0.9);
+}
+
+.inputForm {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid rgba(0, 255, 255, 0.2);
+}
+
+.input {
+  flex: 1;
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  color: #00FFFF;
+  padding: 0.6rem 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.input:focus {
+  border-color: #00FFFF;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.input:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.submitButton {
+  background: rgba(0, 255, 255, 0.1);
+  border: 1px solid #00FFFF;
+  color: #00FFFF;
+  padding: 0.6rem 1.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.submitButton:hover:not(:disabled) {
+  background: rgba(0, 255, 255, 0.2);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+}
+
+.submitButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Scrollbar */
+.chatContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.chatContainer::-webkit-scrollbar-track {
+  background: rgba(0, 255, 255, 0.05);
+}
+
+.chatContainer::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+.chatContainer::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .ragPanel {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    margin: 2rem 0;
+    transform: none;
+  }
+}
+

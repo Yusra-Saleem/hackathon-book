@@ -23,6 +23,16 @@ const ChatKit = () => {
   const inputRef = useRef(null);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
 
+  // Helper: convert UI messages to backend conversation_history
+  const buildConversationHistory = () => {
+    return messages
+      .filter((m) => m.sender === 'user' || m.sender === 'bot' || m.sender === 'ai')
+      .map((m) => ({
+        role: m.sender === 'user' ? 'user' : 'assistant',
+        content: m.text,
+      }));
+  };
+
   const sendMessageWithSelectedText = async (selectedText) => {
     if (!selectedText.trim() || isLoading) return;
 
@@ -51,6 +61,7 @@ const ChatKit = () => {
       const requestBody = { 
         query: `Explain this text in detail with references: ${selectedText}`,
         selected_text: selectedText,
+        conversation_history: buildConversationHistory(),
       };
       
       if (userId) {
@@ -63,7 +74,8 @@ const ChatKit = () => {
       console.log('Sending request with selected text:', requestBody);
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000);
+      // Give backend more time on first load / cold start (60s)
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
       
       const response = await fetch(`${API_BASE}/api/v1/chat`, {
         method: 'POST',
@@ -100,13 +112,26 @@ const ChatKit = () => {
         sources: data.sources || [],
       };
 
+      // Optionally sync with backend conversation_history if provided
+      if (Array.isArray(data.conversation_history)) {
+        const syncedMessages = data.conversation_history.map((m, idx) => ({
+          id: Date.now() + idx,
+          text: m.content,
+          sender: m.role === 'user' ? 'user' : 'bot',
+          timestamp: new Date(),
+        }));
+        setMessages(syncedMessages);
+      } else {
       setMessages((prev) => [...prev, botMessage]);
+      }
     } catch (error) {
       console.error('Error sending message:', error);
       
       let errorText = `Sorry, I couldn't process your request.`;
       
-      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      if (error.name === 'AbortError' || error.message.includes('aborted')) {
+        errorText = 'The request took too long and timed out. The backend might be starting or busy — please try again.';
+      } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
         errorText = 'Cannot connect to backend server. Please make sure the backend is running on http://localhost:8000';
       } else if (error.message.includes('CORS')) {
         errorText = 'CORS error: Backend server is not allowing requests from this origin.';
@@ -228,7 +253,10 @@ const ChatKit = () => {
         }
       }
 
-      const requestBody = { query: currentInput };
+      const requestBody = { 
+        query: currentInput,
+        conversation_history: buildConversationHistory(),
+      };
       if (userId) {
         requestBody.user_id = userId;
       }
@@ -240,7 +268,8 @@ const ChatKit = () => {
       console.log('Request body:', requestBody);
 
       const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+      // Allow more time for backend (e.g. first model download, Qdrant spin‑up)
+      const timeoutId = setTimeout(() => controller.abort(), 60000);
       
       const response = await fetch(`${API_BASE}/api/v1/chat`, {
         method: 'POST',
@@ -289,7 +318,9 @@ const ChatKit = () => {
       
       let errorText = `Sorry, I couldn't process your request.`;
       
-      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+      if (error.name === 'AbortError' || error.message.includes('aborted')) {
+        errorText = 'The request took too long and timed out. The backend might be starting or busy — please try again.';
+      } else if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
         errorText = 'Cannot connect to backend server. Please make sure the backend is running on http://localhost:8000';
       } else if (error.message.includes('CORS')) {
         errorText = 'CORS error: Backend server is not allowing requests from this origin.';

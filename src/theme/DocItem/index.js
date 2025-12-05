@@ -4,7 +4,8 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { useAuth } from '@site/src/contexts/AuthContext';
 import ChatKit, { askQuestionFromSelection } from '@site/src/components/ChatKit/ChatKit';
 import TextSelection from '@site/src/components/TextSelection/TextSelection';
-import TranslationPanel from '@site/src/components/TranslationPanel/TranslationPanel';
+import AIAgentPanel from '@site/src/components/AIAgentPanel/AIAgentPanel';
+
 
 export default function DocItemWrapper(props) {
   const { user } = useAuth();
@@ -63,8 +64,9 @@ export default function DocItemWrapper(props) {
       <DocItem {...props} />
       {/* Text selection handler */}
       <TextSelection onAskQuestion={askQuestionFromSelection} />
-      {/* Translation Panel - Urdu translation */}
-      <TranslationPanel />
+      {/* AI Agent Panel - Explains current page */}
+      <AIAgentPanel />
+
       {/* ChatKit only shows on docs pages */}
       <ChatKit />
       {user && (

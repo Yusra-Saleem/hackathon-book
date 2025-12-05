@@ -1,0 +1,145 @@
+/* Urdu Toggle Button */
+.urdu-toggle-btn {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.4);
+    transition: all 0.25s ease;
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+}
+
+.urdu-toggle-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(16, 185, 129, 0.5);
+}
+
+.urdu-toggle-btn.active {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+}
+
+.urdu-toggle-btn.active:hover:not(:disabled) {
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.5);
+}
+
+.urdu-toggle-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.spinning {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Urdu Content Overlay */
+.urdu-content-overlay {
+    position: fixed;
+    top: 0;
+    /* Below navbar */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: #ffffff;
+    z-index: 9999;
+    overflow-y: auto;
+    padding: 80px 20px 20px 20px;
+}
+
+[data-theme='dark'] .urdu-content-overlay {
+    background: #0f172a;
+}
+
+.urdu-content-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.urdu-content {
+    font-family: 'Noto Nastaliq Urdu', 'Jameel Noori Nastaleeq', serif;
+    font-size: 18px;
+    line-height: 2.2;
+    color: #1f2937;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+[data-theme='dark'] .urdu-content {
+    color: #e5e7eb;
+}
+
+/* Error Toast */
+.urdu-error-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ef4444;
+    color: white;
+    padding: 12px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    z-index: 10001;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: 400px;
+}
+
+.urdu-error-toast p {
+    margin: 0;
+    flex: 1;
+}
+
+.urdu-error-toast button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (max-width: 768px) {
+    .urdu-toggle-btn {
+        top: 60px;
+        right: 15px;
+        padding: 8px 14px;
+        font-size: 13px;
+    }
+
+    .urdu-content {
+        font-size: 16px;
+        line-height: 2;
+    }
+
+    .urdu-content-wrapper {
+        padding: 20px 10px;
+    }
+}

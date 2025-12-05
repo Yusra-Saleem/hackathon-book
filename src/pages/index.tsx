@@ -2,57 +2,131 @@ import React from 'react';
 import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
+import { FaRobot, FaEye, FaBrain, FaTheaterMasks, FaGlobe, FaCommentDots, FaCode, FaRocket, FaUsers, FaBook } from 'react-icons/fa';
 import styles from './index.module.css';
 
-import { FaRobot, FaEye, FaBrain, FaTheaterMasks, FaGlobe, FaBookOpen, FaCommentDots } from 'react-icons/fa';
-
 function HeroSection() {
-  const {siteConfig} = useDocusaurusContext();
-  
   return (
     <header className={styles.heroSection}>
-      <div className={styles.heroBackground}></div>
+      <div className={styles.heroBackground}>
+        <div className={styles.heroGradient}></div>
+        <div className={styles.heroPattern}></div>
+        <div className={styles.heroGlow}></div>
+        {/* Animated Nodes */}
+        <div className={styles.nodesContainer}>
+          <div className={styles.node + ' ' + styles.node1}></div>
+          <div className={styles.node + ' ' + styles.node2}></div>
+          <div className={styles.node + ' ' + styles.node3}></div>
+          <div className={styles.node + ' ' + styles.node4}></div>
+          <div className={styles.node + ' ' + styles.node5}></div>
+          <div className={styles.nodeConnection}></div>
+        </div>
+      </div>
       <div className={styles.container}>
         <div className={styles.heroContent}>
-          <div className={styles.heroText}>
-            <h1>
-              The Future of <br />
-              Embodied AI
+          {/* Left Column - Text Content */}
+          <div className={styles.heroLeft}>
+            <div className={styles.heroBadge}>
+              <span className={styles.heroKicker}>PHYSICAL AI · HUMANOID ROBOTICS</span>
+            </div>
+            <h1 className={styles.heroTitle}>
+              Build the <span className={styles.heroTitleAccent}>robotics OS</span> <br />
+              for your mind.
             </h1>
-            <p>
-              From ROS2 control loops to Vision-Language-Action models. 
-              The definitive open-source guide for the next generation of roboticists.
+            <p className={styles.heroSubtitle}>
+              A comprehensive, end‑to‑end playbook for ROS2, Isaac Sim, digital twins, and
+              embodied AI agents. Learn the control loops, math, and code that matter.
             </p>
-            <div className={styles.heroButtons}>
-              <Link className={styles.ctaButton + ' ' + styles.primaryBtn} to="/docs/Introduction/Foundations-Hardware">
-                Start Learning
+            <div className={styles.heroActions}>
+              <Link
+                className={`${styles.heroButton} ${styles.heroButtonPrimary}`}
+                to="/docs/Introduction/Foundations-Hardware"
+              >
+                <span>Start the curriculum</span>
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                  <path d="M6 12L10 8L6 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
               </Link>
-              <Link className={styles.ctaButton + ' ' + styles.secondaryBtn} to="https://github.com/your-org/my-ai-book">
-                View Source
+              <Link
+                className={`${styles.heroButton} ${styles.heroButtonGhost}`}
+                to="https://github.com/your-org/my-ai-book"
+              >
+                <span>Browse the repo</span>
               </Link>
+            </div>
+            <div className={styles.heroMetaRow}>
+              <div className={styles.heroMetaItem}>
+                <span className={styles.heroMetaIcon}>📚</span>
+                <span>8+ modules</span>
+              </div>
+              <div className={styles.heroMetaItem}>
+                <span className={styles.heroMetaIcon}>🤖</span>
+                <span>Live RAG tutor</span>
+              </div>
+              <div className={styles.heroMetaItem}>
+                <span className={styles.heroMetaIcon}>🚀</span>
+                <span>Beginner → deployment</span>
+              </div>
             </div>
           </div>
           
-          <div className={styles.heroVisual}>
-            <div className={styles.codeWindow}>
-              <div className={styles.windowHeader}>
-                <span className={styles.dot}></span>
-                <span className={styles.dot}></span>
-                <span className={styles.dot}></span>
+          {/* Right Column - Animated Robot */}
+          <div className={styles.heroRight}>
+            <div className={styles.robotContainer}>
+              {/* Circular Nodes Around Robot */}
+              <div className={styles.robotNodes}>
+                <div className={styles.robotNodeRing + ' ' + styles.nodeRing1}>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot1}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot2}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot3}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot4}></div>
+                </div>
+                <div className={styles.robotNodeRing + ' ' + styles.nodeRing2}>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot5}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot6}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot7}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot8}></div>
+                </div>
+                <div className={styles.robotNodeRing + ' ' + styles.nodeRing3}>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot9}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot10}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot11}></div>
+                  <div className={styles.nodeDot + ' ' + styles.nodeDot12}></div>
+                </div>
               </div>
-              <div className={styles.codeContent}>
-                <div><span className={styles.keyword}>import</span> <span className={styles.string}>ros2</span></div>
-                <div><span className={styles.keyword}>from</span> <span className={styles.string}>transformers</span> <span className={styles.keyword}>import</span> AutoModelForVLA</div>
-                <br/>
-                <div><span className={styles.function}>class</span> <span className={styles.keyword}>RobotController</span>:</div>
-                <div style={{paddingLeft: '20px'}}>
-                  <span className={styles.keyword}>def</span> <span className={styles.function}>__init__</span>(self):
+              
+              <div className={styles.robot}>
+                {/* Robot Head */}
+                <div className={styles.robotHead}>
+                  <div className={styles.robotEyes}>
+                    <div className={styles.robotEye}></div>
+                    <div className={styles.robotEye}></div>
+                  </div>
                 </div>
-                <div style={{paddingLeft: '40px'}}>
-                  self.model = <span className={styles.function}>load_policy</span>(<span className={styles.string}>"rt-2-x"</span>)
+                
+                {/* Robot Body */}
+                <div className={styles.robotBody}>
+                  <div className={styles.robotChest}></div>
                 </div>
-                <div style={{paddingLeft: '40px'}}>
-                  self.state = <span className={styles.string}>"INITIALIZING"</span><span className={styles.cursor}></span>
+                
+                {/* Robot Arms */}
+                <div className={styles.robotArms}>
+                  <div className={styles.robotArm + ' ' + styles.robotArmLeft}>
+                    <div className={styles.armUpper}></div>
+                    <div className={styles.armLower}></div>
+                    <div className={styles.robotHand + ' ' + styles.handLeft}></div>
+                  </div>
+                  <div className={styles.robotArm + ' ' + styles.robotArmRight}>
+                    <div className={styles.armUpper}></div>
+                    <div className={styles.armLower}></div>
+                    <div className={styles.robotHand + ' ' + styles.handRight}></div>
+                  </div>
+                </div>
+                
+                {/* Robot Legs */}
+                <div className={styles.robotLegs}>
+                  <div className={styles.robotLeg}></div>
+                  <div className={styles.robotLeg}></div>
                 </div>
               </div>
             </div>
@@ -144,11 +218,51 @@ function AgentPreview() {
     <section className={styles.agentSection}>
       <div className={styles.container}>
         <div className={styles.agentContainer}>
-          <h2 className={styles.sectionTitle}>Your Personal AI Tutor</h2>
-          <p style={{color: '#8892b0', fontSize: '1.2rem', marginBottom: '2rem'}}>
-            Stuck on a concept? Use the chat widget in the bottom right to ask questions. 
-            Our RAG-powered agent has read the entire book and the source code.
+          <h2 className={styles.sectionTitle}>Your Robotics Copilot</h2>
+          <p className={styles.agentText}>
+            Highlight any paragraph in the book and open the chat widget in the bottom right. 
+            The RAG-powered tutor will ground its explanation directly in this textbook so you always stay on track.
           </p>
+          <div className={styles.agentMetaRow}>
+            <span className={styles.agentMetaPill}>Context-aware</span>
+            <span className={styles.agentMetaPill}>Beginner-friendly</span>
+            <span className={styles.agentMetaPill}>Textbook-grounded</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function RoadmapStrip() {
+  return (
+    <section className={styles.roadmapSection}>
+      <div className={styles.container}>
+        <div className={styles.roadmapHeader}>
+          <span className={styles.sectionTag}>Learning Path</span>
+          <h2 className={styles.sectionTitle}>From Zero to Embodied AI</h2>
+        </div>
+        <div className={styles.roadmapTrack}>
+          <div className={styles.roadmapStep}>
+            <span className={styles.roadmapBadge}>01</span>
+            <h3>Foundations & Hardware</h3>
+            <p>Start with physical AI intuition, kinematics, and the core hardware stack.</p>
+          </div>
+          <div className={styles.roadmapStep}>
+            <span className={styles.roadmapBadge}>02</span>
+            <h3>ROS2 & Middleware</h3>
+            <p>Model your robots as ROS2 nodes, topics, and services that scale cleanly.</p>
+          </div>
+          <div className={styles.roadmapStep}>
+            <span className={styles.roadmapBadge}>03</span>
+            <h3>Simulation & Digital Twins</h3>
+            <p>Prototype everything in Isaac Sim before you risk real hardware.</p>
+          </div>
+          <div className={styles.roadmapStep}>
+            <span className={styles.roadmapBadge}>04</span>
+            <h3>Agents & VLA</h3>
+            <p>Blend LLMs with perception and control to create full embodied agents.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -165,6 +279,7 @@ export default function Home(): JSX.Element {
         <HeroSection />
         <BentoFeatures />
         <AgentPreview />
+        <RoadmapStrip />
       </main>
     </Layout>
   );

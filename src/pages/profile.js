@@ -4,18 +4,8 @@ import Profile from '../components/Profile';
 
 function ProfilePage() {
   return (
-    <Layout title="User Profile">
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          height: '50vh',
-          textAlign: 'center',
-        }}
-      >
-        <Profile />
-      </div>
+    <Layout title="User Profile" noFooter>
+      <Profile />
     </Layout>
   );
 }

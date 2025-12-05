@@ -1,35 +1,277 @@
-:root {
-  --ifm-color-primary: #2563eb;
-  --ifm-color-primary-dark: #1d4ed8;
-  --ifm-color-primary-darker: #1e40af;
-  --ifm-color-primary-darkest: #1e3a8a;
-  --ifm-color-primary-light: #3b82f6;
-  --ifm-color-primary-lighter: #60a5fa;
-  --ifm-color-primary-lightest: #93c5fd;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
-  --chatbot-primary-color: #2563eb;
-  --chatbot-bg-color: rgba(255, 255, 255, 0.85);
-  --chatbot-text-color: #333;
-  --chatbot-header-bg: rgba(245, 245, 245, 0.7);
-}
-
-[data-theme='dark'] {
-  --ifm-background-color: #0a192f;
-  --ifm-color-primary: #64ffda;
-  --ifm-color-primary-dark: #4ccfa5;
-  --ifm-color-primary-darker: #3ddc97;
-  --ifm-color-primary-darkest: #2ed989;
-  --ifm-color-primary-light: #7efed1;
-  --ifm-color-primary-lighter: #98ffdd;
-  --ifm-color-primary-lightest: #b2ffe9;
+/* Force dark theme - remove light theme */
+:root,
+[data-theme='light'] {
+  /* Dark theme as default */
+  --ifm-background-color: #020617;
+  --ifm-color-primary: #f97316;         /* Neon orange accent */
+  --ifm-color-primary-dark: #ea580c;
+  --ifm-color-primary-darker: #c2410c;
+  --ifm-color-primary-darkest: #9a3412;
+  --ifm-color-primary-light: #fb923c;
+  --ifm-color-primary-lighter: #fdba74;
+  --ifm-color-primary-lightest: #fed7aa;
   --ifm-font-color-base: #ffffff;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
 
-  --chatbot-primary-color: #64ffda;
+  --chatbot-primary-color: #f97316;
   --chatbot-bg-color: rgba(10, 25, 47, 0.85);
   --chatbot-text-color: #ffffff;
   --chatbot-header-bg: rgba(10, 25, 47, 0.7);
+  --ifm-font-family-base: 'Space Grotesk', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+[data-theme='dark'] {
+  --ifm-background-color: #020617;
+  --ifm-color-primary: #f97316;         /* Neon orange accent */
+  --ifm-color-primary-dark: #ea580c;
+  --ifm-color-primary-darker: #c2410c;
+  --ifm-color-primary-darkest: #9a3412;
+  --ifm-color-primary-light: #fb923c;
+  --ifm-color-primary-lighter: #fdba74;
+  --ifm-color-primary-lightest: #fed7aa;
+  --ifm-font-color-base: #ffffff;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  --chatbot-primary-color: #f97316;
+  --chatbot-bg-color: rgba(10, 25, 47, 0.85);
+  --chatbot-text-color: #ffffff;
+  --chatbot-header-bg: rgba(10, 25, 47, 0.7);
+}
+
+/* Hide theme toggle button */
+[class*="colorModeToggle"],
+[class*="theme-toggle"],
+button[aria-label*="theme"],
+button[aria-label*="Theme"] {
+  display: none !important;
+}
+
+/* ========================================
+   REMOVE DARK OVERLAY / SHADOW
+   ======================================== */
+
+/* Remove all overlay elements */
+.navbar__toggle--overlay,
+.theme-doc-sidebar-container::before,
+[class*="docSidebarContainer"]::before,
+.sidebar-overlay,
+[class*="overlay"],
+[class*="backdrop"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
+
+/* Remove dark background when sidebar is open */
+html.navbar-sidebar--show,
+html.book-sidebar-open {
+  overflow-y: scroll !important;
+}
+
+html.navbar-sidebar--show::before,
+html.book-sidebar-open::before {
+  display: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+/* ========================================
+   SIDEBAR SHIFT BEHAVIOR (NOT OVERLAY)
+   ======================================== */
+
+@media (max-width: 996px) {
+  /* Container that shifts */
+  .main-wrapper {
+    transition: transform 0.3s ease;
+    position: relative;
+  }
+  
+  /* Sidebar should push content, not overlay */
+  .theme-doc-sidebar-container,
+  [class*="docSidebarContainer"] {
+    display: block !important;
+    position: fixed !important;
+    left: 0;
+    top: 60px;
+    width: 280px;
+    height: calc(100vh - 60px);
+    background: var(--ifm-background-color);
+    z-index: 100;
+    overflow-y: auto;
+    pointer-events: none;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+  }
+  
+  /* Show sidebar when open */
+  html.navbar-sidebar--show .theme-doc-sidebar-container,
+  html.navbar-sidebar--show [class*="docSidebarContainer"],
+  html.book-sidebar-open .theme-doc-sidebar-container,
+  html.book-sidebar-open [class*="docSidebarContainer"] {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  /* Global textbook-style sidebar used on all pages */
+  .book-mobile-sidebar {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    width: 280px;
+    max-width: 80vw;
+    background: var(--ifm-background-color);
+    box-shadow: 4px 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 200;
+    overflow-y: auto;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+
+  html.book-sidebar-open .book-mobile-sidebar {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+
+  .book-mobile-sidebar__content {
+    padding: 1.5rem 1.25rem 2rem;
+  }
+
+  .book-mobile-sidebar__header {
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+    padding-bottom: 0.75rem;
+  }
+
+  .book-mobile-sidebar__title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #e5e7eb;
+  }
+
+  .book-mobile-sidebar__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .book-mobile-sidebar__category {
+    margin-bottom: 0.25rem;
+  }
+
+  .book-mobile-sidebar__category-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #e5e7eb;
+    margin-bottom: 0.15rem;
+  }
+
+  .book-mobile-sidebar__chapter-list {
+    list-style: none;
+    margin: 0;
+    padding-left: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+
+  .book-mobile-sidebar__chapter-list li a {
+    display: block;
+    padding: 0.6rem 0.4rem;
+    color: #e5e7eb;
+    text-decoration: none;
+    font-size: 0.95rem;
+  }
+
+  .book-mobile-sidebar__chapter-list li a:hover {
+    color: var(--ifm-color-primary);
+  }
+  
+  /* Main content area shifts */
+  article,
+  .main-wrapper,
+  .docMainContainer {
+    transition: transform 0.3s ease;
+  }
+  
+  html.navbar-sidebar--show article,
+  html.navbar-sidebar--show .main-wrapper,
+  html.navbar-sidebar--show .docMainContainer,
+  html.book-sidebar-open article,
+  html.book-sidebar-open .main-wrapper,
+  html.book-sidebar-open .docMainContainer {
+    transform: translateX(280px);
+  }
+}
+
+@media (min-width: 997px) {
+  /* On desktop, no shifting needed */
+  .main-wrapper,
+  article,
+  .docMainContainer {
+    transform: none !important;
+  }
+  
+  .theme-doc-sidebar-container,
+  [class*="docSidebarContainer"] {
+    position: static !important;
+    transform: none !important;
+  }
+}
+
+/* Futuristic glassy navbar */
+.navbar {
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: linear-gradient(90deg, rgba(2, 6, 23, 0.85), rgba(15, 23, 42, 0.9)) !important;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.75);
+  z-index: 100 !important;
+  position: relative !important;
+}
+
+.navbar__brand {
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+}
+
+.navbar__title {
+  font-size: 0.8rem;
+}
+
+.navbar__items--right .navbar__item,
+.navbar__items--left .navbar__item {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.navbar__link {
+  position: relative;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: var(--ifm-color-primary);
+  transition: width 0.25s ease-out;
+}
+
+.navbar__link:hover::after {
+  width: 100%;
 }
 
 /* Glassmorphism-inspired styles for the chatbot container */
@@ -45,9 +287,9 @@
   color: white;
   border: none;
   border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  font-size: 24px;
+  width: 52px;
+  height: 52px;
+  font-size: 22px;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -62,8 +304,12 @@
 }
 
 .chatbot-window {
-  width: 370px;
-  height: 500px;
+  /* Desktop / default: responsive but compact */
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  height: 340px;
+  /* Smaller overall height so bot sits lower and feels compact */
+  max-height: 50vh;
   border-radius: 15px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -166,4 +412,411 @@
 
 .chatbot-input-area button:hover {
   opacity: 0.9;
+}
+
+/* Mobile responsive behavior for chatbot */
+@media (max-width: 768px) {
+  .chatbot-container {
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    pointer-events: none; /* container itself shouldn't block clicks outside */
+  }
+
+  .chatbot-fab {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    pointer-events: auto;
+  }
+
+  .chatbot-window {
+    width: min(300px, calc(100vw - 32px));
+    max-width: min(300px, calc(100vw - 32px));
+    /* Smaller height on mobile and closer to bottom */
+    height: min(45vh, 320px);
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    margin: 0 auto;
+    border-radius: 18px;
+  }
+
+  .chatbot-header {
+    padding: 12px 14px;
+  }
+
+  .chatbot-messages {
+    padding: 12px;
+  }
+
+  .chatbot-input-area {
+    padding: 12px;
+  }
+}
+
+/* ============================================
+   TEXTBOOK PAGE - NAVY BLUE BACKGROUND & ENHANCED UI
+   ============================================ */
+
+/* Main wrapper - navy blue background */
+.main-wrapper {
+  background: linear-gradient(135deg, #0a1929 0%, #1a2f4a 50%, #0f1b2e 100%) !important;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Add subtle pattern overlay */
+.main-wrapper::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Doc item container - paper-like effect */
+.docItemContainer {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.95) 100%) !important;
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  padding: 3rem 4rem !important;
+  margin: 2rem auto !important;
+  max-width: 1200px !important;
+  position: relative;
+  z-index: 1;
+  transition: all 0.3s ease;
+}
+
+/* Enhanced container wrapper */
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Dark theme adjustments for doc pages */
+[data-theme='dark'] .docItemContainer {
+  background: linear-gradient(180deg, rgba(30, 45, 70, 0.95) 0%, rgba(20, 35, 60, 0.98) 100%) !important;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: #e8eef5;
+}
+
+/* Markdown content area enhancements */
+.theme-doc-markdown {
+  color: #2d3748;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+[data-theme='dark'] .theme-doc-markdown {
+  color: #e8eef5;
+}
+
+/* Enhanced headings */
+.theme-doc-markdown h1 {
+  color: #1a365d;
+  font-weight: 700;
+  font-size: 2.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 3px solid #3b82f6;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .theme-doc-markdown h1 {
+  color: #ffffff;
+  border-bottom-color: #60a5fa;
+}
+
+.theme-doc-markdown h2 {
+  color: #2c5282;
+  font-weight: 600;
+  font-size: 2rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1rem;
+  border-left: 4px solid #4299e1;
+  background: linear-gradient(90deg, rgba(66, 153, 225, 0.1) 0%, transparent 100%);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+}
+
+[data-theme='dark'] .theme-doc-markdown h2 {
+  color: #cbd5e0;
+  border-left-color: #60a5fa;
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.15) 0%, transparent 100%);
+}
+
+.theme-doc-markdown h3 {
+  color: #2d3748;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme='dark'] .theme-doc-markdown h3 {
+  color: #e2e8f0;
+}
+
+/* Enhanced paragraphs */
+.theme-doc-markdown p {
+  margin-bottom: 1.25rem;
+  text-align: justify;
+  hyphens: auto;
+}
+
+/* Enhanced code blocks */
+.theme-doc-markdown pre {
+  background: #1e293b !important;
+  border-radius: 12px;
+  padding: 1.5rem !important;
+  box-shadow: 
+    0 4px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
+}
+
+.theme-doc-markdown code {
+  background: rgba(59, 130, 246, 0.15);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.9em;
+  color: #2563eb;
+  font-weight: 500;
+}
+
+[data-theme='dark'] .theme-doc-markdown code {
+  background: rgba(96, 165, 250, 0.2);
+  color: #93c5fd;
+}
+
+/* Enhanced lists */
+.theme-doc-markdown ul,
+.theme-doc-markdown ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.theme-doc-markdown li {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.theme-doc-markdown ul li::marker {
+  color: #3b82f6;
+}
+
+[data-theme='dark'] .theme-doc-markdown ul li::marker {
+  color: #60a5fa;
+}
+
+/* Enhanced blockquotes */
+.theme-doc-markdown blockquote {
+  border-left: 4px solid #3b82f6;
+  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+  font-style: italic;
+  color: #4a5568;
+}
+
+[data-theme='dark'] .theme-doc-markdown blockquote {
+  border-left-color: #60a5fa;
+  background: linear-gradient(90deg, rgba(96, 165, 250, 0.15) 0%, transparent 100%);
+  color: #cbd5e0;
+}
+
+/* Enhanced tables */
+.theme-doc-markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.theme-doc-markdown table th {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+[data-theme='dark'] .theme-doc-markdown table th {
+  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+}
+
+.theme-doc-markdown table td {
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='dark'] .theme-doc-markdown table td {
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.theme-doc-markdown table tr:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+[data-theme='dark'] .theme-doc-markdown table tr:hover {
+  background: rgba(96, 165, 250, 0.1);
+}
+
+/* Enhanced links */
+.theme-doc-markdown a {
+  color: #2563eb;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+.theme-doc-markdown a:hover {
+  color: #1d4ed8;
+  border-bottom-color: #3b82f6;
+}
+
+[data-theme='dark'] .theme-doc-markdown a {
+  color: #60a5fa;
+}
+
+[data-theme='dark'] .theme-doc-markdown a:hover {
+  color: #93c5fd;
+  border-bottom-color: #60a5fa;
+}
+
+/* Enhanced images */
+.theme-doc-markdown img {
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  margin: 2rem 0;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Sidebar enhancements */
+.theme-doc-sidebar-container {
+  background: rgba(0, 0, 0, 0.2) !important;
+  backdrop-filter: blur(10px);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Fix sidebar toggle in responsive mode */
+/* Hide the default mobile navbar sidebar UI (we only use its toggle class) */
+.navbar-sidebar,
+.navbar-sidebar__panel,
+.navbar-sidebar__backdrop {
+  display: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  pointer-events: none !important;
+}
+
+/* Completely hide the hamburger / fa-bars icon on desktop */
+.navbar__toggle {
+  display: none !important;
+}
+
+.navbar__toggle svg,
+.navbar__toggle svg path,
+.navbar__toggle svg line,
+.navbar__toggle i {
+  width: 20px !important;
+  height: 20px !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+  stroke-width: 2 !important;
+}
+
+.navbar__toggle:hover svg,
+.navbar__toggle:hover svg path,
+.navbar__toggle:hover svg line,
+.navbar__toggle:hover i {
+  color: #f97316 !important;
+  stroke: #f97316 !important;
+}
+
+/* Force dark theme on body and html */
+html,
+body {
+  background-color: #020617 !important;
+  color: #ffffff !important;
+}
+
+html[data-theme='light'],
+html[data-theme='light'] body {
+  background-color: #020617 !important;
+  color: #ffffff !important;
+}
+
+/* Responsive adjustments + mobile sidebar toggle behavior */
+@media (max-width: 996px) {
+  /* Re‑enable hamburger / toggle only on mobile */
+  .navbar__toggle {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 24px !important;
+    height: 24px !important;
+    min-width: 24px !important;
+    min-height: 24px !important;
+    padding: 0 !important;
+    margin-right: 1rem !important;
+    background: transparent !important;
+    border: none !important;
+    cursor: pointer !important;
+    z-index: 1001 !important;
+    color: #ffffff !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+  }
+
+  .docItemContainer {
+    padding: 2rem 1.5rem !important;
+    margin: 1rem !important;
+    border-radius: 12px;
+  }
+  
+  .theme-doc-markdown h1 {
+    font-size: 2rem;
+  }
+  
+  .theme-doc-markdown h2 {
+    font-size: 1.75rem;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Enhanced focus states for accessibility */
+.theme-doc-markdown a:focus,
+.theme-doc-markdown button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+  border-radius: 4px;
 }

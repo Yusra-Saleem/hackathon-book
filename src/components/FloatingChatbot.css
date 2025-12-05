@@ -22,10 +22,11 @@
 
 .chatbot-window {
   position: absolute;
-  bottom: 70px; /* Above the toggle button */
+  bottom: 64px; /* Above the toggle button */
   right: 0;
-  width: 350px;
-  height: 450px;
+  /* Smaller, compact desktop size */
+  width: 300px;
+  height: 320px;
   background-color: var(--chatbot-bg-color);
   border-radius: 10px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
@@ -98,9 +99,10 @@
     right: 10px;
   }
   .chatbot-window {
-    width: 90vw;
-    height: 70vh;
-    bottom: 60px;
-    right: 5vw;
+    /* Smaller but full-width friendly on mobile */
+    width: min(300px, 88vw);
+    height: min(55vh, 320px);
+    bottom: 56px;
+    right: 0;
   }
 }

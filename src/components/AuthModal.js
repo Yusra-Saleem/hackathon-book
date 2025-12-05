@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import './FloatingChatbot.css'; // reuse modal-friendly styles if available
-
-const API_BASE = 'http://localhost:8000';
+import { useAuth } from '../contexts/AuthContext';
+import './AuthModal.css';
 
 const TABS = {
   SIGN_IN: 'sign_in',
   SIGN_UP: 'sign_up',
 };
 
-export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
-  const [activeTab, setActiveTab] = useState(TABS.SIGN_IN);
+export default function AuthModal({ isOpen, onClose, onAuthSuccess, defaultTab = 'sign_in' }) {
+  const { signIn, signUp } = useAuth();
+  const [activeTab, setActiveTab] = useState(defaultTab === 'sign_up' ? TABS.SIGN_UP : TABS.SIGN_IN);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [softwareBackground, setSoftwareBackground] = useState('');
@@ -35,13 +35,13 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     onClose?.();
   };
 
-  const persistAuth = (data) => {
+  const persistAuth = (session) => {
     if (!ExecutionEnvironment.canUseDOM) return;
-    if (data?.user_id) {
-      localStorage.setItem('user_id', String(data.user_id));
+    if (session?.user?.id) {
+      localStorage.setItem('user_id', String(session.user.id));
     }
-    if (data?.token) {
-      localStorage.setItem('token', data.token);
+    if (session?.session?.token) {
+      localStorage.setItem('token', session.session.token);
     }
   };
 
@@ -51,24 +51,12 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     setError('');
 
     try {
-      const response = await fetch(`${API_BASE}/api/v1/auth/signin`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Sign-in failed');
-      }
-
-      const data = await response.json();
-      persistAuth(data);
-      onAuthSuccess?.(data);
+      const result = await signIn(email, password);
+      persistAuth(result);
+      onAuthSuccess?.(result);
       closeAndReset();
     } catch (err) {
       setError(err.message || 'Sign-in failed');
-    } finally {
       setLoading(false);
     }
   };
@@ -79,44 +67,27 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
     setError('');
 
     try {
-      const signupBody = {
-        email,
-        password,
-        software_background: softwareBackground,
-        hardware_background: hardwareBackground,
-      };
-
-      const response = await fetch(`${API_BASE}/api/v1/auth/signup`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(signupBody),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Sign-up failed');
-      }
-
-      // On successful signup, immediately sign the user in to obtain token/user_id
-      await handleSignIn(event);
+      const result = await signUp(email, password);
+      persistAuth(result);
+      onAuthSuccess?.(result);
+      closeAndReset();
     } catch (err) {
-      setLoading(false);
       setError(err.message || 'Sign-up failed');
-      return;
+      setLoading(false);
     }
   };
 
   return (
-    <div className="chatbot-backdrop">
-      <div className="chatbot-window auth-modal">
-        <div className="chatbot-header">
-          <span>{activeTab === TABS.SIGN_IN ? 'Sign In' : 'Create Account'}</span>
-          <button onClick={closeAndReset} className="chatbot-close-btn" aria-label="Close auth modal">
+    <div className="auth-modal-overlay">
+      <div className="auth-modal-container">
+        <div className="auth-modal-header">
+          <h2>{activeTab === TABS.SIGN_IN ? 'Welcome Back' : 'Create Account'}</h2>
+          <button onClick={closeAndReset} className="auth-modal-close" aria-label="Close auth modal">
             ×
           </button>
         </div>
 
-        <div className="auth-modal-tabs">
+        <div className="auth-tabs">
           <button
             type="button"
             className={`auth-tab ${activeTab === TABS.SIGN_IN ? 'active' : ''}`}
@@ -133,79 +104,93 @@ export default function AuthModal({ isOpen, onClose, onAuthSuccess }) {
           </button>
         </div>
 
-        {error && <div className="auth-error">{error}</div>}
+        <div className="auth-modal-body">
+          {error && <div className="auth-error">{error}</div>}
 
-        {activeTab === TABS.SIGN_IN ? (
-          <form className="auth-form" onSubmit={handleSignIn}>
-            <label className="auth-label">
-              Email
-              <input
-                className="auth-input"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <label className="auth-label">
-              Password
-              <input
-                className="auth-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-            <button className="auth-submit" type="submit" disabled={loading}>
-              {loading ? 'Signing in…' : 'Sign In'}
-            </button>
-          </form>
-        ) : (
-          <form className="auth-form" onSubmit={handleSignUp}>
-            <label className="auth-label">
-              Email
-              <input
-                className="auth-input"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </label>
-            <label className="auth-label">
-              Password
-              <input
-                className="auth-input"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </label>
-            <label className="auth-label">
-              Software Background (required)
-              <textarea
-                className="auth-textarea"
-                value={softwareBackground}
-                onChange={(e) => setSoftwareBackground(e.target.value)}
-                required
-              />
-            </label>
-            <label className="auth-label">
-              Hardware Background (required)
-              <textarea
-                className="auth-textarea"
-                value={hardwareBackground}
-                onChange={(e) => setHardwareBackground(e.target.value)}
-                required
-              />
-            </label>
-            <button className="auth-submit" type="submit" disabled={loading}>
-              {loading ? 'Creating account…' : 'Sign Up'}
-            </button>
-          </form>
-        )}
+          {activeTab === TABS.SIGN_IN ? (
+            <form className="auth-form" onSubmit={handleSignIn}>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="signin-email">Email Address</label>
+                <input
+                  id="signin-email"
+                  className="auth-input"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="signin-password">Password</label>
+                <input
+                  id="signin-password"
+                  className="auth-input"
+                  type="password"
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <button className="auth-submit" type="submit" disabled={loading}>
+                {loading ? 'Signing in…' : 'Sign In'}
+              </button>
+            </form>
+          ) : (
+            <form className="auth-form" onSubmit={handleSignUp}>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="signup-email">Email Address</label>
+                <input
+                  id="signup-email"
+                  className="auth-input"
+                  type="email"
+                  placeholder="you@example.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="signup-password">Password</label>
+                <input
+                  id="signup-password"
+                  className="auth-input"
+                  type="password"
+                  placeholder="Create a strong password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="software-bg">Software Background</label>
+                <textarea
+                  id="software-bg"
+                  className="auth-textarea"
+                  placeholder="Tell us about your software experience..."
+                  value={softwareBackground}
+                  onChange={(e) => setSoftwareBackground(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="auth-field">
+                <label className="auth-label" htmlFor="hardware-bg">Hardware Background</label>
+                <textarea
+                  id="hardware-bg"
+                  className="auth-textarea"
+                  placeholder="Tell us about your hardware experience..."
+                  value={hardwareBackground}
+                  onChange={(e) => setHardwareBackground(e.target.value)}
+                  required
+                />
+              </div>
+              <button className="auth-submit" type="submit" disabled={loading}>
+                {loading ? 'Creating account…' : 'Create Account'}
+              </button>
+            </form>
+          )}
+        </div>
       </div>
     </div>
   );
