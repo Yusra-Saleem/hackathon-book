@@ -3,7 +3,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { Languages, X, Loader2 } from 'lucide-react';
 import './TranslationPanel.css';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://yusra-saleem123-hackathon-book-backend.hf.space';
 
 const TranslationPanel = () => {
   const [isOpen, setIsOpen] = useState(false);

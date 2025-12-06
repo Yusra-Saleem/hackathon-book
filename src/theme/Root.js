@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import Root from '@theme-original/Root'; // Import the original Docusaurus Root component
-import { AuthProvider } from '../contexts/AuthContext';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 
 export default function RootWrapper(props) {
@@ -41,12 +40,11 @@ export default function RootWrapper(props) {
   }, []);
 
   return (
-    <AuthProvider>
-      <>
-        <Root {...props} />
+    <>
+      <Root {...props} />
 
-        {/* Global mobile textbook-style sidebar, shown when html has .book-sidebar-open */}
-        <div className="book-mobile-sidebar">
+      {/* Global mobile textbook-style sidebar, shown when html has .book-sidebar-open */}
+      <div className="book-mobile-sidebar">
           <nav className="book-mobile-sidebar__content">
             <div className="book-mobile-sidebar__header">
               <span className="book-mobile-sidebar__title">Textbook</span>
@@ -160,6 +158,5 @@ export default function RootWrapper(props) {
           </nav>
         </div>
       </>
-    </AuthProvider>
-  );
+    );
 }

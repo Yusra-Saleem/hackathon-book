@@ -3,7 +3,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { Send, MessageSquare, X, Loader2 } from 'lucide-react';
 import './ChatKit.css';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://yusra-saleem123-hackathon-book-backend.hf.space';
 
 // Global function to send question from text selection
 let globalAskQuestion = null;

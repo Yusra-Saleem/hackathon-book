@@ -35,8 +35,6 @@ module.exports = {
       title: 'Physical AI & Humanoid Robots',
       items: [
         { to: '/docs/Introduction/Foundations-Hardware', label: 'TextBook', position: 'left' },
-        { to: '/login', label: 'Login', position: 'right' },
-        { to: '/signup', label: 'Sign Up', position: 'right' },
         { href: 'https://github.com', label: 'GitHub', position: 'right' },
       ],
     },

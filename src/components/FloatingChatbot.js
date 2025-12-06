@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useThemeContext } from '@docusaurus/theme-common';
 import './FloatingChatbot.css';
-import { useAuth } from '../contexts/AuthContext'; // Import useAuth
 
 function FloatingChatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState('');
   const { isDarkTheme } = useThemeContext();
-  const { user } = useAuth(); // Get user from AuthContext
 
   // Handle persistence if needed (e.g., local storage)
   useEffect(() => {
@@ -31,8 +29,6 @@ function FloatingChatbot() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          // You might need to add an Authorization header here if your backend requires it
-          // 'Authorization': `Bearer ${user.token}`, 
         },
         body: JSON.stringify({ query: inputText }),
       });
@@ -50,11 +46,6 @@ function FloatingChatbot() {
       setMessages(prevMessages => [...prevMessages, errorMessage]);
     }
   };
-
-  // Only render the chatbot if the user is logged in
-  if (!user) {
-    return null;
-  }
 
   return (
     <div className={`chatbot-container ${isDarkTheme ? 'dark-theme' : 'light-theme'}`}>

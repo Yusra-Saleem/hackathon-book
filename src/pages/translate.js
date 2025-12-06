@@ -15,7 +15,7 @@ const TranslationPage = () => {
     setTranslatedText('');
 
     try {
-      const response = await fetch('http://localhost:8000/api/v1/translate', {
+      const response = await fetch('https://yusra-saleem123-hackathon-book-backend.hf.space/api/v1/translate', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ chapter_content: inputText }),
