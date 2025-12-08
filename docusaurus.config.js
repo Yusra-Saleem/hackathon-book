@@ -14,6 +14,10 @@ module.exports = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+  markdown: {
+    mermaid: true,
+  },
+  themes: ['@docusaurus/theme-mermaid'],
   presets: [
     [
       '@docusaurus/preset-classic',
@@ -56,5 +60,8 @@ module.exports = {
       ],
       copyright: `Copyright © ${new Date().getFullYear()} My AI Book`,
     },
+  },
+  customFields: {
+    apiBaseUrl: 'https://yusra-saleem123-hackathon-book-backend.hf.space',
   },
 };
