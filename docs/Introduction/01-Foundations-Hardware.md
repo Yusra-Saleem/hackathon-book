@@ -28,6 +28,21 @@ Key characteristics:
 *   **Actuation**: Uses motors and other actuators to perform physical actions.
 *   **Real-world Challenges**: Deals with uncertainty, noise, delays, and dynamic environments.
 
+### The Sense-Plan-Act Loop
+
+```mermaid
+graph LR
+    E[Environment] -- Sense --> S[Sensors]
+    S -- "Data (Images, Lidar, IMU)" --> P[Perception]
+    P -- "State Estimate" --> D[Decision/Planning]
+    D -- "Trajectory/Command" --> C[Control]
+    C -- "Voltage/Current" --> A[Actuators]
+    A -- "Force/Motion" --> E
+    style P fill:#f9f,stroke:#333,stroke-width:2px
+    style D fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bfb,stroke:#333,stroke-width:2px
+```
+
 ## 2. Essential Robotics Hardware
 
 A robot is a complex system of interconnected hardware components. Understanding these parts is crucial for designing and troubleshooting robotic systems.
@@ -43,6 +58,15 @@ Actuators are the "muscles" of a robot, responsible for converting electrical, h
     *   **Brushless DC (BLDC) Motors**: High efficiency, high power-to-weight ratio, common in drones and advanced robotics.
 *   **Hydraulic/Pneumatic Actuators**: Used for high force applications, e.g., heavy industrial robots.
 *   **Gearboxes**: Reduce speed and increase torque from motors.
+
+#### Motor Comparison Table
+
+| Motor Type | Pros | Cons | Typical Use Case |
+| :--- | :--- | :--- | :--- |
+| **DC Motor** | Simple, cheap, easy control | Low torque at high speed, brushes wear out | Wheels, fans, simple toys |
+| **Servo Motor** | Precise position control, high torque | Limited rotation range (usually), complex control | Robot arms, grippers, steering |
+| **Stepper Motor** | Precise positioning, high holding torque | Low efficiency, can lose steps, vibration | 3D printers, CNC machines |
+| **BLDC Motor** | High efficiency, high power, low maintenance | Complex controller required (ESC), higher cost | Drones, Quadruped Robots, EVs |
 
 ### 2.2. Sensors
 
@@ -101,7 +125,26 @@ Robots use control systems to achieve desired behaviors, maintain stability, and
     *   **PID (Proportional-Integral-Derivative) Controllers**: A widely used feedback control loop mechanism.
         *   **P (Proportional)**: Responds to the current error.
         *   **I (Integral)**: Responds to accumulated error over time.
+        *   **I (Integral)**: Responds to accumulated error over time.
         *   **D (Derivative)**: Responds to the rate of change of error.
+
+### Visualizing PID Control
+
+```mermaid
+graph TD
+    Set["Setpoint (Desired)"] --> Err("Error func")
+    Sensor["Sensor Feedback"] --> Err
+    Err --> P["Proportional Block"]
+    Err --> I["Integral Block"]
+    Err --> D["Derivative Block"]
+    P --> Sum(("Sum"))
+    I --> Sum
+    D --> Sum
+    Sum -- "Control Signal (u)" --> Plant["System / Robot"]
+    Plant -- "Output (y)" --> Sensor
+    style Sum fill:#f96,stroke:#333,stroke-width:2px
+    style Plant fill:#96f,stroke:#333,stroke-width:2px
+```
 
 ## 5. Safety and Ethical Considerations
 

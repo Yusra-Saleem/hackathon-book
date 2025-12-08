@@ -33,6 +33,18 @@ Key advantages of ROS2:
 A **ROS2 Node** is an executable process that performs a specific, focused task. Think of nodes as individual programs or services that make up your robot's entire software system. For example, one node might control a motor, another might process camera data, and a third might handle navigation planning.
 
 Each node in ROS2 should ideally be responsible for a single logical module, promoting a clean, modular architecture.
+    
+```mermaid
+graph TD
+    subgraph "Robot Software System"
+    N1[Camera Driver Node] -- Images --> N2[Object Detection Node]
+    N3[Lidar Driver Node] -- PointCloud --> N4[SLAM Node]
+    N2 -- "Object Pose" --> N5[Navigation/Acting Node]
+    N4 -- "Robot Pose" --> N5
+    N5 -- "Velocity Cmd" --> N6[Motor Controller Node]
+    end
+    style N5 fill:#f9f,stroke:#333
+```
 
 ### Creating a Simple Python Node
 
@@ -86,6 +98,23 @@ To make this node executable:
 *   **Asynchronous**: Publishers and subscribers don't need to be running at the same time or know about each other directly.
 *   **Message Types**: Each topic has a defined message type (e.g., `std_msgs/String`, `geometry_msgs/Twist`), ensuring data consistency.
 *   **Decoupling**: Nodes are loosely coupled, making the system more robust and easier to develop.
+
+#### The Publish-Subscribe Pattern
+
+```mermaid
+sequenceDiagram
+    participant Pub as Publisher (Talker)
+    participant Topic as /topic (Bus)
+    participant Sub1 as Subscriber 1 (Listener)
+    participant Sub2 as Subscriber 2 (Logger)
+    
+    Note over Pub, Topic: Asynchronous Message
+    Pub->>Topic: Publish Message {"data": "Hello"}
+    par Fan-out
+        Topic->>Sub1: Deliver Message
+        Topic->>Sub2: Deliver Message
+    end
+```
 
 ### Creating a Publisher and Subscriber
 
@@ -181,6 +210,17 @@ ROS2 provides powerful command-line tools to inspect your running system:
 *   `ros2 topic pub <topic_name> <msg_type> <args>`: Manually publish a message to a topic.
 
 These tools are invaluable for debugging and understanding the flow of data in your robotic system.
+    
+### ROS2 CLI Cheat Sheet
+
+| Command | Action | Example Usage |
+| :--- | :--- | :--- |
+| `ros2 node list` | Show all running nodes | `ros2 node list` |
+| `ros2 node info` | Show details of a specific node | `ros2 node info /my_node` |
+| `ros2 topic list` | List active topics | `ros2 topic list -v` (verbose) |
+| `ros2 topic echo` | Print messages to console | `ros2 topic echo /cmd_vel` |
+| `ros2 topic hz` | Measure publishing rate | `ros2 topic hz /camera/image_raw` |
+| `ros2 interface show` | Show message structure | `ros2 interface show sensor_msgs/msg/Image` |
 
 ## Conclusion
 
