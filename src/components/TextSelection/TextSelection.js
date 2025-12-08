@@ -3,7 +3,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { MessageSquare, Languages } from 'lucide-react';
 import './TextSelection.css';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://yusra-saleem123-hackathon-book-backend.hf.space';
 
 const TextSelection = ({ onAskQuestion }) => {
   const [selectedText, setSelectedText] = useState('');
