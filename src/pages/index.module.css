@@ -1,19 +1,40 @@
 /* Global Animations */
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  0% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-20px);
+  }
+
+  100% {
+    transform: translateY(0px);
+  }
 }
 
 @keyframes pulseGlow {
-  0% { box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary); }
-  50% { box-shadow: 0 0 20px var(--ifm-color-primary), 0 0 40px var(--ifm-color-primary); }
-  100% { box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary); }
+  0% {
+    box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary);
+  }
+
+  50% {
+    box-shadow: 0 0 20px var(--ifm-color-primary), 0 0 40px var(--ifm-color-primary);
+  }
+
+  100% {
+    box-shadow: 0 0 5px var(--ifm-color-primary), 0 0 10px var(--ifm-color-primary);
+  }
 }
 
 @keyframes gridMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 50px 50px; }
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 50px 50px;
+  }
 }
 
 /* Layout Utilities */
@@ -38,7 +59,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(0, 255, 255, 0.15) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 255, 255, 0.15) 1px, transparent 1px);
   background-size: 60px 60px;
@@ -52,7 +73,7 @@
 
 /* Hero Section */
 .heroSection {
-  padding: 10rem 0 8rem;
+  padding: 3rem 0 8rem;
   position: relative;
   overflow: hidden;
   text-align: center;
@@ -68,7 +89,7 @@
 .heroGradient {
   position: absolute;
   inset: 0;
-  background: 
+  background:
     radial-gradient(circle at 20% 30%, rgba(0, 210, 255, 0.15) 0%, transparent 50%),
     radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
     linear-gradient(180deg, #0b132b 0%, #0a192f 50%, #0b132b 100%);
@@ -78,7 +99,7 @@
 .heroPattern {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
   background-size: 40px 40px;
   opacity: 0.4;
@@ -141,41 +162,83 @@
 }
 
 @keyframes gradientShift {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.8; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
 @keyframes patternMove {
-  0% { background-position: 0 0; }
-  100% { background-position: 40px 40px; }
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 40px 40px;
+  }
 }
 
 @keyframes glowPulse {
-  0%, 100% { 
+
+  0%,
+  100% {
     transform: translate(-50%, -50%) scale(1);
     opacity: 0.3;
   }
-  50% { 
+
+  50% {
     transform: translate(-50%, -50%) scale(1.2);
     opacity: 0.5;
   }
 }
 
 @keyframes orbFloat1 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -30px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
 }
 
 @keyframes orbFloat2 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-40px, -20px) scale(1.15); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  50% {
+    transform: translate(-40px, -20px) scale(1.15);
+  }
 }
 
 @keyframes orbFloat3 {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  25% { transform: translate(25px, 25px) scale(1.05); }
-  75% { transform: translate(-30px, -15px) scale(0.95); }
+
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate(25px, 25px) scale(1.05);
+  }
+
+  75% {
+    transform: translate(-30px, -15px) scale(0.95);
+  }
 }
 
 .heroContent {
@@ -258,7 +321,7 @@
 .nodeConnection {
   position: absolute;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(to right, rgba(0, 210, 255, 0.1) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(0, 210, 255, 0.1) 1px, transparent 1px);
   background-size: 100px 100px;
@@ -267,11 +330,14 @@
 }
 
 @keyframes nodePulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
     box-shadow: 0 0 20px rgba(0, 210, 255, 0.8);
   }
+
   50% {
     transform: scale(1.3);
     opacity: 0.7;
@@ -280,8 +346,13 @@
 }
 
 @keyframes connectionFlow {
-  0% { background-position: 0 0; }
-  100% { background-position: 100px 100px; }
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 100px 100px;
+  }
 }
 
 /* Animated Robot */
@@ -427,26 +498,44 @@
 }
 
 @keyframes ringRotate1 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 @keyframes ringRotate2 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(-360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(-360deg);
+  }
 }
 
 @keyframes ringRotate3 {
-  0% { transform: translate(-50%, -50%) rotate(0deg); }
-  100% { transform: translate(-50%, -50%) rotate(360deg); }
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
 }
 
 @keyframes nodePulse {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: scale(1);
     opacity: 1;
     box-shadow: 0 0 15px rgba(0, 210, 255, 0.8);
   }
+
   50% {
     transform: scale(1.3);
     opacity: 0.8;
@@ -495,8 +584,16 @@
 }
 
 @keyframes eyeBlink {
-  0%, 90%, 100% { transform: scaleY(1); }
-  95% { transform: scaleY(0.1); }
+
+  0%,
+  90%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  95% {
+    transform: scaleY(0.1);
+  }
 }
 
 /* Robot Body */
@@ -525,8 +622,17 @@
 }
 
 @keyframes chestPulse {
-  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; }
+
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    opacity: 0.8;
+  }
 }
 
 /* Robot Arms */
@@ -593,20 +699,47 @@
 }
 
 @keyframes armSwingLeft {
-  0%, 100% { transform: rotate(-15deg); }
-  50% { transform: rotate(15deg); }
+
+  0%,
+  100% {
+    transform: rotate(-15deg);
+  }
+
+  50% {
+    transform: rotate(15deg);
+  }
 }
 
 @keyframes armSwingRight {
-  0%, 100% { transform: rotate(15deg); }
-  50% { transform: rotate(-15deg); }
+
+  0%,
+  100% {
+    transform: rotate(15deg);
+  }
+
+  50% {
+    transform: rotate(-15deg);
+  }
 }
 
 @keyframes handMove {
-  0%, 100% { transform: scale(1) rotate(0deg); }
-  25% { transform: scale(1.2) rotate(10deg); }
-  50% { transform: scale(1) rotate(0deg); }
-  75% { transform: scale(1.2) rotate(-10deg); }
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  25% {
+    transform: scale(1.2) rotate(10deg);
+  }
+
+  50% {
+    transform: scale(1) rotate(0deg);
+  }
+
+  75% {
+    transform: scale(1.2) rotate(-10deg);
+  }
 }
 
 /* Robot Legs */
@@ -634,8 +767,15 @@
 }
 
 @keyframes legMove {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-5px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
 }
 
 .heroBadge {
@@ -662,8 +802,13 @@
 }
 
 @keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
 }
 
 .heroKicker {
@@ -711,8 +856,17 @@
 }
 
 @keyframes underlineGlow {
-  0%, 100% { opacity: 0.3; box-shadow: 0 0 10px rgba(0, 210, 255, 0.3); }
-  50% { opacity: 0.6; box-shadow: 0 0 20px rgba(0, 210, 255, 0.6); }
+
+  0%,
+  100% {
+    opacity: 0.3;
+    box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+  }
+
+  50% {
+    opacity: 0.6;
+    box-shadow: 0 0 20px rgba(0, 210, 255, 0.6);
+  }
 }
 
 .heroSubtitle {
@@ -755,7 +909,7 @@
 .heroButtonPrimary {
   background: linear-gradient(135deg, var(--ifm-color-primary) 0%, #00d2ff 100%);
   color: #020617;
-  box-shadow: 
+  box-shadow:
     0 4px 20px rgba(0, 210, 255, 0.3),
     0 0 0 0 rgba(0, 210, 255, 0.5);
 }
@@ -771,7 +925,7 @@
 
 .heroButtonPrimary:hover {
   transform: translateY(-2px);
-  box-shadow: 
+  box-shadow:
     0 8px 30px rgba(0, 210, 255, 0.4),
     0 0 0 4px rgba(0, 210, 255, 0.1);
 }
@@ -869,6 +1023,7 @@
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -984,9 +1139,20 @@
   animation: torsoBars 1.8s ease-in-out infinite alternate;
 }
 
-.robotTorsoBars span:nth-child(1) { height: 10px; animation-delay: 0.1s; }
-.robotTorsoBars span:nth-child(2) { height: 14px; animation-delay: 0.25s; }
-.robotTorsoBars span:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+.robotTorsoBars span:nth-child(1) {
+  height: 10px;
+  animation-delay: 0.1s;
+}
+
+.robotTorsoBars span:nth-child(2) {
+  height: 14px;
+  animation-delay: 0.25s;
+}
+
+.robotTorsoBars span:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.4s;
+}
 
 .robotLimbs {
   display: grid;
@@ -1060,15 +1226,35 @@
 }
 
 @keyframes robotScan {
-  0% { transform: translateY(-100%); opacity: 0; }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
-  100% { transform: translateY(100%); opacity: 0; }
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
 }
 
 @keyframes torsoBars {
-  from { transform: translateY(0); opacity: 0.6; }
-  to   { transform: translateY(-3px); opacity: 1; }
+  from {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+
+  to {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
 }
 
 /* Bento Grid Features */
@@ -1128,8 +1314,13 @@
 }
 
 /* Specific Bento Card Sizes */
-.cardLarge { grid-column: span 2; }
-.cardTall { grid-row: span 2; }
+.cardLarge {
+  grid-column: span 2;
+}
+
+.cardTall {
+  grid-row: span 2;
+}
 
 .cardIcon {
   font-size: 3rem;
@@ -1281,7 +1472,7 @@
   }
 
   .heroSection {
-    padding: 6rem 0 4rem;
+    padding: 3rem 0 4rem;
   }
 
   .heroTitle {
@@ -1317,8 +1508,9 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-  
-  .cardLarge, .cardTall {
+
+  .cardLarge,
+  .cardTall {
     grid-column: span 1;
     grid-row: span 1;
     min-height: 300px;
@@ -1327,42 +1519,6 @@
 
 @media screen and (max-width: 640px) {
   .robotContainer {
-    max-width: 250px;
-    height: 350px;
-  }
-
-  .robot {
-    width: 120px;
-    height: 250px;
-  }
-
-  .robotHead {
-    width: 60px;
-    height: 60px;
-  }
-
-  .robotBody {
-    width: 80px;
-    height: 100px;
-  }
-
-  .armUpper {
-    width: 16px;
-    height: 50px;
-  }
-
-  .armLower {
-    width: 14px;
-    height: 40px;
-  }
-
-  .robotHand {
-    width: 20px;
-    height: 20px;
-  }
-
-  .robotLeg {
-    width: 20px;
-    height: 60px;
+    display: none;
   }
 }
