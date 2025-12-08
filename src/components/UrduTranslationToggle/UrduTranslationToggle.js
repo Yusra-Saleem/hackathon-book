@@ -3,7 +3,7 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import { Languages, Loader2 } from 'lucide-react';
 import './UrduTranslationToggle.css';
 
-const API_BASE = 'http://localhost:8000';
+const API_BASE = 'https://yusra-saleem123-hackathon-book-backend.hf.space';
 
 const UrduTranslationToggle = () => {
     const [isUrduMode, setIsUrduMode] = useState(false);
